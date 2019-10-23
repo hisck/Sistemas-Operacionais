@@ -33,7 +33,6 @@ int main(int argc, char *argv[]){
 
     //listen
     listen(socket_description, 3);
-    pipe(fd);
     //aceita e espera conexões/requisições
     puts("\nEsperando por requisições . . . ");
     c = sizeof(struct sockaddr_in);
@@ -41,10 +40,10 @@ int main(int argc, char *argv[]){
     while((client_socket = accept(socket_description, (struct sockaddr *)&client, (socklen_t*)&c))){
         puts("\n\nConnection Accepted\n\n");
         pthread_t sniffer_thread;
-        new_sock = malloc(1);
-        *new_sock = client_socket;
+        new_socket = malloc(1);
+        *new_socket = client_socket;
 
-        if( pthread_create( &sniffer_thread , NULL ,  connection_handler , (void*) new_sock) < 0){
+        if( pthread_create( &sniffer_thread , NULL ,  connection_handler , (void*) new_socket) < 0){
             perror("could not create thread\n");
             return 1;
         }
@@ -60,9 +59,8 @@ int main(int argc, char *argv[]){
     }
 
     return 0;
-    }
-
 }
+
 
 void *connection_handler(void *socket_desc){
     FILE *memoria;

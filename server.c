@@ -5,10 +5,9 @@ sem_t semaforo;
 void *connection_handler(void *);
 
 int main(int argc, char *argv[]){
-    int socket_description, client_socket, *new_socket, c, /*nbytes*/;
+    int socket_description, client_socket, *new_socket, c;
     struct sockaddr_in server, client;
-    //int fd[2];
-    //char readbuffer[1000];
+
     sem_init(&semaforo, 0, 1);
 
     //criando socket
@@ -16,7 +15,7 @@ int main(int argc, char *argv[]){
     if (socket_description == -1){
         printf("\nFalha ao criar o socket\n");
     }else{
-        printf("\nSocket Criado com sucesso\n");
+        puts("\nSocket Criado com sucesso\n");
     }
 
     //prepara o sockaddr_in

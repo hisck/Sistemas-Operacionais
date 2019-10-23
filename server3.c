@@ -21,7 +21,7 @@ int main(int argc, char *argv[]){
     //prepara o sockaddr_in
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_addr.s_addr = INADDR_ANY;
-    serverAddr.sin_port = htons(8080);
+    serverAddr.sin_port = htons(8082);
 
     //Bind
     if(bind(socket_description, (struct sockaddr *)&serverAddr, sizeof(serverAddr)) < 0){
@@ -84,8 +84,8 @@ void *connection_handler(void *socket_desc){
         sem_wait(&semaforo);
 
         //Abre o arquivo de memoria compartilhada
-        if(!(memoria = fopen("shared_memory.txt", "r+"))){
-            memoria = fopen("shared_memory.txt", "w+");
+        if(!(memoria = fopen("shared_memory3.txt", "r+"))){
+            memoria = fopen("shared_memory3.txt", "w+");
         }
 
         printf("%s\n", escolha);
@@ -180,10 +180,10 @@ void *connection_handler(void *socket_desc){
             }
             mes[j-2] = '0';
             fclose(memoria);
-            memoria = fopen("shared_memory.txt", "w+");
+            memoria = fopen("shared_memory3.txt", "w+");
             fwrite(mes, sizeof(char), strlen(mes), memoria);
             fclose(memoria);
-            memoria = fopen("shared_memory.txt", "r+");
+            memoria = fopen("shared_memory3.txt", "r+");
 
             send(sock, cabo, strlen(cabo), 0);
         }

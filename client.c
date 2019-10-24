@@ -16,10 +16,10 @@ int main(int argc , char *argv[]){
     printf("[+]Client Socket created");
     memset(&serverAddr, '\0', sizeof(serverAddr));
     int PORT;
-    
+
     serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
     serverAddr.sin_family = AF_INET;
-    serverAddr.sin_port = htons( PORT );
+    serverAddr.sin_port = htons( 8079 );
 
   //Conexão
     if (connect(ClientSocket , (struct sockaddr *)&serverAddr , sizeof(serverAddr)) < 0){

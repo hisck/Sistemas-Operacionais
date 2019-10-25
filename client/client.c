@@ -58,7 +58,7 @@ int main(int argc , char *argv[]){
             respServidor[strlen(respServidor)-1] = '\0';
             strcpy(resp, respServidor);
             int ind = 10;
-            nome = strtok(&respServidor, "|");
+            nome = strtok(respServidor, "|");
             while(nome){
                 printf("carro %d\n", ind);
                 printf("nome: %s\n", nome);

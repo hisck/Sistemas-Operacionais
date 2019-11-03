@@ -15,7 +15,6 @@ int main(int argc , char *argv[]){
     }
     printf("[+]Client Socket created");
     memset(&serverAddr, '\0', sizeof(serverAddr));
-    int PORT;
 
     serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
     serverAddr.sin_family = AF_INET;
@@ -26,7 +25,7 @@ int main(int argc , char *argv[]){
         perror("[-]Connection Failed!");
         exit(1);
     }
-    printf("[+]Connected to Server!");
+    printf("[+]Connected to Proxy! ");
     printf("SUPER SISTEMA DE ALUGUEL DE CARROS\n");
 
     //Conexão contínua

@@ -67,7 +67,7 @@ int main(int argc , char *argv[]){
         puts(respServidor);
 
         // Alugar um carro
-        if(!(strcmp(escolha, "2"))){
+        if(!(strcmp(escolha2, "2"))){
             char* nome, *marca, *placa, *disp, *resp;
             char car[2];
             char cabo[16];

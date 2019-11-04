@@ -31,7 +31,6 @@ void *runSocket(void *vargp)
       server_sd.sin_port = htons(atoi(info->port));  
       server_sd.sin_addr.s_addr = inet_addr(info->ip);  
       //connect to main server from this proxy server  
-      printf("Chegou antes do connect");
       if((connect(server_fd, (struct sockaddr *)&server_sd, sizeof(server_sd)))<0)  
       {  
            printf("server connection not established");  
@@ -107,11 +106,16 @@ int main(int argc, char *argv[]){
     while((client_socket = accept(socket_description, (struct sockaddr *)&clientAddr, (socklen_t*)&c))){
         puts("\n\nConnection Accepted\n\n");
         item->client_fd = client_socket;  
+        strcpy(item->ip,"127.0.0.1");  
         pthread_t sniffer_thread;
         new_socket = malloc(1);
         *new_socket = client_socket;
-        
-       /* if( pthread_create( &sniffer_thread , NULL ,  connection_handler , (void*) new_socket) < 0){
+        recv(item->client_fd , escolha1, 2 , 0)
+        printf("%s\n", escolha1);
+        if(!strcmp(escolha1, "1")) strcpy(item->port,"8080");
+        else if(escolha1[0] == '2') strcpy(item->port,"8081");
+        else if(escolha1[0] == '3') strcpy(item->port,"8082");
+        if( pthread_create( &sniffer_thread , NULL ,  runSocket , (void*)item) < 0){
             perror("could not create thread\n");
             return 1;
         }
@@ -122,27 +126,6 @@ int main(int argc, char *argv[]){
     if (client_socket < 0){
         perror("accept failed\n");
         return 1;
-    }
-    while( (read_size = recv(item->client_fd , escolha1, 2 , 0)) > 0 ){
-        strcpy(item->ip,"127.0.0.1");  
-        printf("%s\n", escolha1);
-
-        if(!strcmp(escolha1, "1")){
-            strcpy(item->port,"8080");
-            printf("tentando conectar no server 1");
-            pthread_create(&tid, NULL, runSocket, (void *)item);  
-            sleep(1);  
-
-        }else if(escolha1[0] == '2'){
-            strcpy(item->port,"8081");
-            pthread_create(&tid, NULL, runSocket, (void *)item);  
-            sleep(1);  
-
-        }else if(escolha1[0] == '3'){
-            strcpy(item->port,"8082");
-            pthread_create(&tid, NULL, runSocket, (void *)item);  
-            sleep(1);  
-        } 
     }
 
     return 0;

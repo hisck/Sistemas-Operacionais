@@ -34,6 +34,7 @@ void *runSocket(void *vargp)
       if((connect(server_fd, (struct sockaddr *)&server_sd, sizeof(server_sd)))<0)  
       {  
            printf("server connection not established");  
+           exit(1);
       }  
       printf("server socket connected\n");  
       while(1)  

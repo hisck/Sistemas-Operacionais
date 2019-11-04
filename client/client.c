@@ -3,7 +3,7 @@
 int main(int argc , char *argv[]){
 
     int ClientSocket;
-    char escolha[2], buffer[2000];
+    char escolha1[2], escolha2[2], buffer[2000];
     struct sockaddr_in serverAddr;
     char mensagem[1000] , respServidor[2000], aux[2000], aux2[2000];
 
@@ -26,17 +26,35 @@ int main(int argc , char *argv[]){
         exit(1);
     }
     printf("[+]Connected to Proxy! ");
-    printf("SUPER SISTEMA DE ALUGUEL DE CARROS\n");
+    printf("SUPER SISTEMA DE ALUGUEL DE AUTOMÓVEIS\n");
 
     //Conexão contínua
     while(1){
+         printf("Escolha uma função: \n");
+        printf("\t1- Carros\n");
+        printf("\t2- Caminhoes\n");
+        printf("\t3- Utilitários\n");
+        scanf("%s" , escolha1);
+        system("clear");
+        if( send(ClientSocket , escolha1 , 2 , 0) < 0){
+            puts("Falha ao enviar");
+            return 1;
+        }
+
+        if( recv(ClientSocket , respServidor , 2000 , 0) < 0){
+            puts("Falha");
+            break;
+        }
+
+        puts(respServidor);
+
         printf("Escolha uma função: \n");
         printf("\t1- Registrar um carro\n");
         printf("\t2- Alugar um carro\n");
-        scanf("%s" , escolha);
+        scanf("%s" , escolha2);
         system("clear");
 
-        if( send(ClientSocket , escolha , 2 , 0) < 0){
+        if( send(ClientSocket , escolha2 , 2 , 0) < 0){
             puts("Falha ao enviar");
             return 1;
         }
@@ -72,7 +90,7 @@ int main(int argc , char *argv[]){
                 printf("----------------------\n");
             }
 
-            printf("Digite o carro desejado: ");
+            printf("Digite o Veiculo desejado: ");
             scanf("%s", &car);
 
             send(ClientSocket, car, 2, 0);
@@ -87,25 +105,25 @@ int main(int argc , char *argv[]){
             //aux2[0] = '\0';
 
             fflush(stdin);
-            printf("\nInsira o nome do carro: ");
+            printf("\nInsira o nome do Veiculo: ");
             scanf("%s", aux);
             fflush(stdin);
             strcat(aux, "|");
 
-            printf("\nInsira a marca do carro: ");
+            printf("\nInsira a marca do Veiculo: ");
             fflush(stdin);
             scanf("%s", aux2);
             strcat(aux, aux2);
             strcat(aux, "|");
 
-            printf("\nInsira a placa do carro: ");
+            printf("\nInsira a placa do Veiculo: ");
             scanf("%s", aux2);
             strcat(aux, aux2);
 
             strcat(aux, "|1|\n");
 
             system("clear");
-            printf("Carro Inserido!\n");
+            printf("Veiculo Inserido!\n");
 
 
             printf("%s\n", aux);

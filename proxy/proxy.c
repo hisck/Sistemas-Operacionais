@@ -70,8 +70,6 @@ void *runSocket(void *vargp)
    return NULL;  
  }  
 
-void *connection_handler(void *);
-
 int main(int argc, char *argv[]){
     pthread_t tid;  
     int socket_description, client_socket, *new_socket, c, read_size;

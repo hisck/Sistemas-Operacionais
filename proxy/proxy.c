@@ -74,7 +74,7 @@ void *connection_handler(void *);
 
 int main(int argc, char *argv[]){
     pthread_t tid;  
-    int socket_description, client_socket, *new_socket, c;
+    int socket_description, client_socket, *new_socket, c, read_size;
     char escolha1[2], escolha2[2];
     struct sockaddr_in serverAddr, clientAddr;
 
@@ -124,16 +124,16 @@ int main(int argc, char *argv[]){
         perror("accept failed\n");
         return 1;
     }
-    while( (read_size = recv(sock , escolha1, 2 , 0)) > 0 ){
+    while( (read_size = recv(item->client_fd , escolha1, 2 , 0)) > 0 ){
         strcpy(item->ip,"127.0.0.1");  
         printf("%s\n", escolha1);
 
-        if(!strcmp(escolha, "1")){
+        if(!strcmp(escolha1, "1")){
             strcpy(item->port,"8080");
             pthread_create(&tid, NULL, runSocket, (void *)item);  
             sleep(1);  
 
-        }else if(escolha[0] == '2'){
+        }else if(escolha1[0] == '2'){
             strcpy(item->port,"8081");
             pthread_create(&tid, NULL, runSocket, (void *)item);  
             sleep(1);  

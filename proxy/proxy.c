@@ -110,12 +110,12 @@ int main(int argc, char *argv[]){
         new_socket = malloc(1);
         *new_socket = client_socket;
         
-        if( pthread_create( &sniffer_thread , NULL ,  connection_handler , (void*) new_socket) < 0){
+       /* if( pthread_create( &sniffer_thread , NULL ,  connection_handler , (void*) new_socket) < 0){
             perror("could not create thread\n");
             return 1;
         }
 
-        puts("Handler assigned\n");
+        puts("Handler assigned\n");*/
     }
 
     if (client_socket < 0){

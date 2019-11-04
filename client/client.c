@@ -36,7 +36,7 @@ int main(int argc , char *argv[]){
         printf("\t3- Utilitários\n");
         scanf("%s" , escolha1);
         system("clear");
-        send(ClientSocket , escolha1 , 2 , 0)
+        send(ClientSocket , escolha1 , 2 , 0);
         /*if( send(ClientSocket , escolha1 , 2 , 0) < 0){
             puts("Falha ao enviar");
             return 1;

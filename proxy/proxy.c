@@ -116,6 +116,7 @@ int main(int argc, char *argv[]){
         if(!strcmp(escolha1, "1")) strcpy(item->port,"8080");
         else if(escolha1[0] == '2') strcpy(item->port,"8081");
         else if(escolha1[0] == '3') strcpy(item->port,"8082");
+        printf("\nServer port %s\n", item->port);
         if( pthread_create( &sniffer_thread , NULL ,  runSocket , (void*)item) < 0){
             perror("could not create thread\n");
             return 1;

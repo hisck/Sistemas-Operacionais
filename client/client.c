@@ -30,6 +30,7 @@ int main(int argc , char *argv[]){
 
     //Conexão contínua
     while(1){
+        fflush(stdin);
          printf("Escolha uma função: \n");
         printf("\t1- Carros\n");
         printf("\t2- Caminhoes\n");
@@ -37,6 +38,7 @@ int main(int argc , char *argv[]){
         scanf("%s" , escolha1);
         system("clear");
         send(ClientSocket , escolha1 , 2 , 0);
+        fflush(stdin);
         /*if( send(ClientSocket , escolha1 , 2 , 0) < 0){
             puts("Falha ao enviar");
             return 1;

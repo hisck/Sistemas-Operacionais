@@ -128,6 +128,7 @@ int main(int argc, char *argv[]){
 
         if(!strcmp(escolha1, "1")){
             strcpy(item->port,"8080");
+            printf("tentando conectar no server 1");
             pthread_create(&tid, NULL, runSocket, (void *)item);  
             sleep(1);  
 

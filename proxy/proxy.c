@@ -88,7 +88,7 @@ int main(int argc, char *argv[]){
     //prepara o sockaddr_in
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_addr.s_addr = INADDR_ANY;
-    serverAddr.sin_port = htons(8079);
+    serverAddr.sin_port = htons(10000);
 
     //Bind
     if(bind(socket_description, (struct sockaddr *)&serverAddr, sizeof(serverAddr)) < 0){

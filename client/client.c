@@ -45,9 +45,6 @@ int main(int argc , char *argv[]){
             puts("Falha");
             break;
         }
-
-        puts(respServidor);
-
         printf("Escolha uma função: \n");
         printf("\t1- Registrar um carro\n");
         printf("\t2- Alugar um carro\n");

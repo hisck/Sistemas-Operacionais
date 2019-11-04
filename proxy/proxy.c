@@ -110,7 +110,7 @@ int main(int argc, char *argv[]){
         pthread_t sniffer_thread;
         new_socket = malloc(1);
         *new_socket = client_socket;
-        recv(item->client_fd , escolha1, 2 , 0)
+        recv(item->client_fd , escolha1, 2 , 0);
         printf("%s\n", escolha1);
         if(!strcmp(escolha1, "1")) strcpy(item->port,"8080");
         else if(escolha1[0] == '2') strcpy(item->port,"8081");
@@ -120,7 +120,7 @@ int main(int argc, char *argv[]){
             return 1;
         }
 
-        puts("Handler assigned\n");*/
+        puts("Handler assigned\n");
     }
 
     if (client_socket < 0){

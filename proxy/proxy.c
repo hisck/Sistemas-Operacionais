@@ -12,6 +12,7 @@ void *runSocket(void *vargp)
    struct serverInfo *info = (struct serverInfo *)vargp;  
    char buffer[65535];  
    int bytes =0;  
+   char escolha[2];
       printf("client:%d\n",info->client_fd);  
       fputs(info->ip,stdout);  
       fputs(info->port,stdout);  
@@ -40,10 +41,11 @@ void *runSocket(void *vargp)
       while(1)  
       {  
            //receive data from client  
-           memset(&buffer, '\0', sizeof(buffer));  
+           //memset(&buffer, '\0', sizeof(buffer));  
            bytes = read(info->client_fd, buffer, sizeof(buffer));  
            if(bytes <= 0)  
            {  
+               printf("error");
            }  
            else   
            {  

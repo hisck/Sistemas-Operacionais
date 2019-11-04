@@ -31,6 +31,7 @@ void *runSocket(void *vargp)
       server_sd.sin_port = htons(atoi(info->port));  
       server_sd.sin_addr.s_addr = inet_addr(info->ip);  
       //connect to main server from this proxy server  
+      printf("Chegou antes do connect");
       if((connect(server_fd, (struct sockaddr *)&server_sd, sizeof(server_sd)))<0)  
       {  
            printf("server connection not established");  

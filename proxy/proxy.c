@@ -42,6 +42,7 @@ void *runSocket(void *vargp)
       {  
            //receive data from client  
            //memset(&buffer, '\0', sizeof(buffer));  
+           printf("OIE");
            bytes = read(info->client_fd, buffer, sizeof(buffer));  
            if(bytes <= 0)  
            {  

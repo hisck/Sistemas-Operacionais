@@ -146,7 +146,7 @@ void *connection_handler(void *socket_desc){
                 //fscanf(aux, %s, %s, %s, nome, marca, placa);
                 free(client_message);
                 send(sock, message, strlen(message), 0);
-                //exit(0);
+                exit(0);
             }
         }
         else if(buffer[0] == '2'){

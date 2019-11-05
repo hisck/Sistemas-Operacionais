@@ -79,7 +79,7 @@ void *connection_handler(void *socket_desc){
     //Get the socket descriptor
     int sock = *(int*)socket_desc;
     int read_size, val;
-    char escolha[2];
+    char buffer[65535];
     char dados[2000];
     char *message , *client_message, *client_message_aux;
     pid_t pid;
@@ -91,7 +91,7 @@ void *connection_handler(void *socket_desc){
 
     printf("Antes do while");
     //Receive a message from client
-    while( (read_size = recv(sock , escolha , 2 , 0)) > 0 ){
+    while( (read_size = recv(sock , buffer , 65535 , 0)) > 0 ){
         sem_wait(&semaforo);
         printf("no while");
         //Abre o arquivo de memoria compartilhada

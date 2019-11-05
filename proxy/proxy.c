@@ -34,7 +34,7 @@ void *runSocket(void *vargp)
         if(!strcmp(escolha1, "1")) strcpy(info->port,"10100");
         else if(escolha1[0] == '2') strcpy(info->port,"10200");
         else if(escolha1[0] == '3') strcpy(info->port,"10300");
-        printf("\nServer port %s\n", item->port);
+        printf("\nServer port %s\n", info->port);
         server_sd.sin_family = AF_INET;  
         server_sd.sin_port = htons(atoi(info->port));  
         server_sd.sin_addr.s_addr = inet_addr(info->ip);  

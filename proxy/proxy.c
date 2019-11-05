@@ -43,7 +43,7 @@ void *runSocket(void *vargp)
       {  
            //receive data from client  
            //memset(&buffer, '\0', sizeof(buffer));  
-
+            printf("OIE");
            bytes = read(info->client_fd, buffer, sizeof(buffer));  
            if(bytes <= 0)  
            {  
@@ -69,9 +69,9 @@ void *runSocket(void *vargp)
                 // send response back to client  
                 write(info->client_fd, buffer, sizeof(buffer));  
                 printf("From server :\n");                    
-                fputs(buffer,stdout);            
+                fputs(buffer,stdout);     
+                 i++;       
            }  
-           i++;
       };       
    return NULL;  
  }  

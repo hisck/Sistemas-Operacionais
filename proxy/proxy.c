@@ -29,11 +29,11 @@ void *runSocket(void *vargp)
       memset(&server_sd, 0, sizeof(server_sd));  
       // set socket variables  
       while(1){
-        recv(item->client_fd , escolha1, 2 , 0);
+        recv(info->client_fd , escolha1, 2 , 0);
         printf("%s\n", escolha1);
-        if(!strcmp(escolha1, "1")) strcpy(item->port,"10100");
-        else if(escolha1[0] == '2') strcpy(item->port,"10200");
-        else if(escolha1[0] == '3') strcpy(item->port,"10300");
+        if(!strcmp(escolha1, "1")) strcpy(info->port,"10100");
+        else if(escolha1[0] == '2') strcpy(info->port,"10200");
+        else if(escolha1[0] == '3') strcpy(info->port,"10300");
         printf("\nServer port %s\n", item->port);
         server_sd.sin_family = AF_INET;  
         server_sd.sin_port = htons(atoi(info->port));  

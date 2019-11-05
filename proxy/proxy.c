@@ -38,11 +38,12 @@ void *runSocket(void *vargp)
            exit(1);
       }  
       printf("server socket connected\n");  
-      while(1)  
+      int i = 0;
+      while(i < 2)  
       {  
            //receive data from client  
            //memset(&buffer, '\0', sizeof(buffer));  
-           printf("OIE");
+
            bytes = read(info->client_fd, buffer, sizeof(buffer));  
            if(bytes <= 0)  
            {  
@@ -70,6 +71,7 @@ void *runSocket(void *vargp)
                 printf("From server :\n");                    
                 fputs(buffer,stdout);            
            }  
+           i++;
       };       
    return NULL;  
  }  

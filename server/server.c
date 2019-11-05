@@ -89,11 +89,11 @@ void *connection_handler(void *socket_desc){
 
     mkfifo(myfifo, 0666);
 
-
+    printf("Antes do while");
     //Receive a message from client
     while( (read_size = recv(sock , escolha , 2 , 0)) > 0 ){
         sem_wait(&semaforo);
-
+        printf("no while");
         //Abre o arquivo de memoria compartilhada
         if(!(memoria = fopen("shared_memory.txt", "r+"))){
             memoria = fopen("shared_memory.txt", "w+");
@@ -102,6 +102,7 @@ void *connection_handler(void *socket_desc){
         printf("%s\n", escolha);
 
         if(!strcmp(escolha, "1")){
+            printf("dentro do if");
             sem_getvalue(&semaforo, &val);
             message = "Insira os dados: ";
             send(sock, message, strlen(message), 0);

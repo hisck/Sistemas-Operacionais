@@ -83,6 +83,7 @@ void *runSocket(void *vargp)
                 }  
                 printf("server socket connected\n");  
                 flag_connected3 = 1;
+                //
             }
             server_fd = server3_fd;
         }

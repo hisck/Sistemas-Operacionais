@@ -38,7 +38,7 @@ int main(int argc , char *argv[]){
         scanf("%s" , escolha1);
         system("clear");
         send(ClientSocket , escolha1 , 2 , 0);
-        fflush(stdin);
+        fflush(stdin);//
         /*if( send(ClientSocket , escolha1 , 2 , 0) < 0){
             puts("Falha ao enviar");
             return 1;

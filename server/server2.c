@@ -99,9 +99,9 @@ void *connection_handler(void *socket_desc){
             memoria = fopen("shared_memory2.txt", "w+");
         }
 
-        printf("%s\n", escolha);
+        printf("%s\n", buffer);
 
-        if(!strcmp(escolha, "1")){
+        if(!strcmp(buffer, "1")){
             sem_getvalue(&semaforo, &val);
             message = "Insira os dados: ";
             send(sock, message, strlen(message), 0);
@@ -149,7 +149,7 @@ void *connection_handler(void *socket_desc){
                 exit(0);
             }
         }
-        else if(escolha[0] == '2'){
+        else if(buffer[0] == '2'){
             char* linha = NULL;
             char mes[5000];
             char cabo[] = "Carro alugado!\n";

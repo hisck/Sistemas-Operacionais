@@ -12,10 +12,10 @@ void *runSocket(void *vargp)
    struct serverInfo *info = (struct serverInfo *)vargp;  
    char buffer[65535];  
    int bytes =0;  
-   char escolha[2];
+   char escolha1[2];
       printf("client:%d\n",info->client_fd);  
       fputs(info->ip,stdout);  
-      fputs(info->port,stdout);  
+      //fputs(info->port,stdout);  
       //code to connect to main server via this proxy server  
       int server_fd =0;  
       struct sockaddr_in server_sd;  
@@ -28,58 +28,65 @@ void *runSocket(void *vargp)
       printf("server socket created\n");       
       memset(&server_sd, 0, sizeof(server_sd));  
       // set socket variables  
-      server_sd.sin_family = AF_INET;  
-      server_sd.sin_port = htons(atoi(info->port));  
-      server_sd.sin_addr.s_addr = inet_addr(info->ip);  
-      //connect to main server from this proxy server  
-      if((connect(server_fd, (struct sockaddr *)&server_sd, sizeof(server_sd)))<0)  
-      {  
-           printf("server connection not established");  
-           exit(1);
+      while(1){
+        recv(item->client_fd , escolha1, 2 , 0);
+        printf("%s\n", escolha1);
+        if(!strcmp(escolha1, "1")) strcpy(item->port,"10100");
+        else if(escolha1[0] == '2') strcpy(item->port,"10200");
+        else if(escolha1[0] == '3') strcpy(item->port,"10300");
+        printf("\nServer port %s\n", item->port);
+        server_sd.sin_family = AF_INET;  
+        server_sd.sin_port = htons(atoi(info->port));  
+        server_sd.sin_addr.s_addr = inet_addr(info->ip);  
+        //connect to main server from this proxy server  
+        if((connect(server_fd, (struct sockaddr *)&server_sd, sizeof(server_sd)))<0)  
+        {  
+            printf("server connection not established");  
+            exit(1);
+        }  
+        printf("server socket connected\n");  
+        int i = 0;
+        while(i < 2)  
+        {  
+            //receive data from client  
+            //memset(&buffer, '\0', sizeof(buffer));  
+            bytes = read(info->client_fd, buffer, sizeof(buffer));  
+            if(bytes <= 0)  
+            {  
+                printf("error");
+            }  
+            else   
+            {  
+                    // send data to main server  
+                    write(server_fd, buffer, sizeof(buffer));  
+                    //printf("client fd is : %d\n",c_fd);                    
+                    printf("From client :\n");                    
+                    fputs(buffer,stdout);       
+                    fflush(stdout);  
+            }  
+            //recieve response from server  
+            memset(&buffer, '\0', sizeof(buffer));  
+            bytes = read(server_fd, buffer, sizeof(buffer));  
+            if(bytes <= 0)  
+            {  
+            }            
+            else  
+            {  
+                    // send response back to client  
+                    write(info->client_fd, buffer, sizeof(buffer));  
+                    printf("From server :\n");                    
+                    fputs(buffer,stdout);     
+                    i++;       
+            }  
+        };     
       }  
-      printf("server socket connected\n");  
-      int i = 0;
-      while(i < 2)  
-      {  
-           //receive data from client  
-           //memset(&buffer, '\0', sizeof(buffer));  
-            printf("OIE");
-           bytes = read(info->client_fd, buffer, sizeof(buffer));  
-           if(bytes <= 0)  
-           {  
-               printf("error");
-           }  
-           else   
-           {  
-                // send data to main server  
-                write(server_fd, buffer, sizeof(buffer));  
-                //printf("client fd is : %d\n",c_fd);                    
-                printf("From client :\n");                    
-                fputs(buffer,stdout);       
-                  fflush(stdout);  
-           }  
-           //recieve response from server  
-           memset(&buffer, '\0', sizeof(buffer));  
-           bytes = read(server_fd, buffer, sizeof(buffer));  
-           if(bytes <= 0)  
-           {  
-           }            
-           else  
-           {  
-                // send response back to client  
-                write(info->client_fd, buffer, sizeof(buffer));  
-                printf("From server :\n");                    
-                fputs(buffer,stdout);     
-                 i++;       
-           }  
-      };       
    return NULL;  
  }  
 
 int main(int argc, char *argv[]){
     pthread_t tid;  
     int socket_description, client_socket, *new_socket, c, read_size;
-    char escolha1[2], escolha2[2];
+    //char escolha1[2], escolha2[2];
     struct sockaddr_in serverAddr, clientAddr;
 
     //criando socket
@@ -116,12 +123,12 @@ int main(int argc, char *argv[]){
         pthread_t sniffer_thread;
         new_socket = malloc(1);
         *new_socket = client_socket;
-        recv(item->client_fd , escolha1, 2 , 0);
+        /*recv(item->client_fd , escolha1, 2 , 0);
         printf("%s\n", escolha1);
         if(!strcmp(escolha1, "1")) strcpy(item->port,"10100");
         else if(escolha1[0] == '2') strcpy(item->port,"10200");
         else if(escolha1[0] == '3') strcpy(item->port,"10300");
-        printf("\nServer port %s\n", item->port);
+        printf("\nServer port %s\n", item->port);*/
         if( pthread_create( &sniffer_thread , NULL ,  runSocket , (void*)item) < 0){
             perror("could not create thread\n");
             return 1;

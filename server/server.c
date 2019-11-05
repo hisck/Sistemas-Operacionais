@@ -194,14 +194,14 @@ void *connection_handler(void *socket_desc){
             fwrite(mes, sizeof(char), strlen(mes), memoria);
             fclose(memoria);
             memoria = fopen("shared_memory.txt", "r+");
-
+            
             send(sock, cabo, strlen(cabo), 0);
         }
 
         //Send the message back to client
         fclose(memoria);
         write(sock , client_message , strlen(client_message));
-
+        close(sock);
         sem_post(&semaforo);
     }
 

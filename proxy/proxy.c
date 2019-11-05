@@ -21,6 +21,9 @@ void *runSocket(void *vargp)
       int server1_fd = 0;
       int server2_fd = 0;
       int server3_fd = 0; 
+      int flag_connected1 = 0;
+      int flag_connected2 = 0;
+      int flag_connected3 = 0;
       struct sockaddr_in server_sd;  
       // create a socket  
       server1_fd = socket(AF_INET, SOCK_STREAM, 0);  
@@ -39,39 +42,48 @@ void *runSocket(void *vargp)
         recv(info->client_fd , escolha1, 2 , 0);
         printf("%s\n", escolha1);
         if(!strcmp(escolha1, "1")){
-            strcpy(info->port,"10100");
-            printf("\nServer port %s\n", info->port);
-            server_sd.sin_port = htons(atoi(info->port)); 
-            if((connect(server1_fd, (struct sockaddr *)&server_sd, sizeof(server_sd)))<0)  
-            {  
-                printf("server connection not established");  
-                exit(1);
-            }  
-            printf("server socket connected\n");  
+            if(flag_connected1 == 0){
+                strcpy(info->port,"10100");
+                printf("\nServer port %s\n", info->port);
+                server_sd.sin_port = htons(atoi(info->port)); 
+                if((connect(server1_fd, (struct sockaddr *)&server_sd, sizeof(server_sd)))<0)  
+                {  
+                    printf("server connection not established");  
+                    exit(1);
+                }  
+                printf("server socket connected\n");  
+                flag_connected1 = 1;
+            }
             server_fd = server1_fd;
         } 
         else if(escolha1[0] == '2') {
-            strcpy(info->port,"10200");
-            printf("\nServer port %s\n", info->port);
-            server_sd.sin_port = htons(atoi(info->port)); 
-            if((connect(server2_fd, (struct sockaddr *)&server_sd, sizeof(server_sd)))<0)  
-            {  
-                printf("server connection not established");  
-                exit(1);
-            }  
-            printf("server socket connected\n");  
+            if(flag_connected2 == 0){
+                strcpy(info->port,"10200");
+                printf("\nServer port %s\n", info->port);
+                server_sd.sin_port = htons(atoi(info->port)); 
+                if((connect(server2_fd, (struct sockaddr *)&server_sd, sizeof(server_sd)))<0)  
+                {  
+                    printf("server connection not established");  
+                    exit(1);
+                }  
+                printf("server socket connected\n");  
+                flag_connected2 = 1;
+            }
             server_fd = server2_fd;
         }
-        else if(escolha1[0] == '3'){ 
-            strcpy(info->port,"10300");
-            printf("\nServer port %s\n", info->port);
-            server_sd.sin_port = htons(atoi(info->port)); 
-            if((connect(server3_fd, (struct sockaddr *)&server_sd, sizeof(server_sd)))<0)  
-            {  
-                printf("server connection not established");  
-                exit(1);
-            }  
-            printf("server socket connected\n");  
+        else if(escolha1[0] == '3'){
+            if(flag_connected3 == 0){
+                strcpy(info->port,"10300");
+                printf("\nServer port %s\n", info->port);
+                server_sd.sin_port = htons(atoi(info->port)); 
+                if((connect(server3_fd, (struct sockaddr *)&server_sd, sizeof(server_sd)))<0)  
+                {  
+                    printf("server connection not established");  
+                    exit(1);
+                }  
+                printf("server socket connected\n");  
+                flag_connected3 = 1;
+            }
             server_fd = server3_fd;
         }
             

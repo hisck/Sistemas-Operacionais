@@ -201,7 +201,7 @@ void *connection_handler(void *socket_desc){
         //Send the message back to client
         fclose(memoria);
         write(sock , client_message , strlen(client_message));
-
+        close(sock);
         sem_post(&semaforo);
     }
 

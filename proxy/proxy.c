@@ -28,6 +28,8 @@ void *runSocket(void *vargp)
       printf("server socket created\n");       
       memset(&server_sd, 0, sizeof(server_sd));  
       // set socket variables  
+      server_sd.sin_addr.s_addr = inet_addr(info->ip);
+      server_sd.sin_family = AF_INET;  
       while(1){
         recv(info->client_fd , escolha1, 2 , 0);
         printf("%s\n", escolha1);
@@ -35,9 +37,9 @@ void *runSocket(void *vargp)
         else if(escolha1[0] == '2') strcpy(info->port,"10200");
         else if(escolha1[0] == '3') strcpy(info->port,"10300");
         printf("\nServer port %s\n", info->port);
-        server_sd.sin_family = AF_INET;  
+
         server_sd.sin_port = htons(atoi(info->port));  
-        server_sd.sin_addr.s_addr = inet_addr(info->ip);  
+          
         //connect to main server from this proxy server  
         if((connect(server_fd, (struct sockaddr *)&server_sd, sizeof(server_sd)))<0)  
         {  
@@ -78,6 +80,7 @@ void *runSocket(void *vargp)
                     fputs(buffer,stdout);     
                     i++;       
             }  
+            if(i == 1) close(server_fd);
         };     
       }  
    return NULL;  

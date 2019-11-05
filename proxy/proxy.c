@@ -18,14 +18,15 @@ void *runSocket(void *vargp)
       //fputs(info->port,stdout);  
       //code to connect to main server via this proxy server  
       int server_fd =0; 
+      int server1_fd = 0;
       int server2_fd = 0;
       int server3_fd = 0; 
       struct sockaddr_in server_sd;  
       // create a socket  
-      server_fd = socket(AF_INET, SOCK_STREAM, 0);  
+      server1_fd = socket(AF_INET, SOCK_STREAM, 0);  
       server2_fd = socket(AF_INET, SOCK_STREAM, 0);
       server3_fd = socket(AF_INET, SOCK_STREAM, 0);
-      if(server_fd < 0)  
+      if(server1_fd < 0)  
       {  
            printf("server socket not created\n");  
       }  
@@ -41,12 +42,13 @@ void *runSocket(void *vargp)
             strcpy(info->port,"10100");
             printf("\nServer port %s\n", info->port);
             server_sd.sin_port = htons(atoi(info->port)); 
-            if((connect(server_fd, (struct sockaddr *)&server_sd, sizeof(server_sd)))<0)  
+            if((connect(server1_fd, (struct sockaddr *)&server_sd, sizeof(server_sd)))<0)  
             {  
                 printf("server connection not established");  
                 exit(1);
             }  
             printf("server socket connected\n");  
+            server_fd = server1_fd;
         } 
         else if(escolha1[0] == '2') {
             strcpy(info->port,"10200");
@@ -58,6 +60,7 @@ void *runSocket(void *vargp)
                 exit(1);
             }  
             printf("server socket connected\n");  
+            server_fd = server2_fd;
         }
         else if(escolha1[0] == '3'){ 
             strcpy(info->port,"10300");
@@ -69,6 +72,7 @@ void *runSocket(void *vargp)
                 exit(1);
             }  
             printf("server socket connected\n");  
+            server_fd = server3_fd;
         }
             
         //connect to main server from this proxy server  
